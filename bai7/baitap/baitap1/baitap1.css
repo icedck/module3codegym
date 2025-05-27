@@ -1,0 +1,47 @@
+body{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 24px;
+}
+
+header, footer{
+    padding: 10px;
+    color: white;
+    background-color: black;
+}
+
+section{
+    width: 75%;
+    padding: 10px;
+    margin: 5px;
+    background-color: lightgray;
+    float: left;
+}
+
+aside{
+    width: 20%;
+    padding: 10px;
+    margin: 5px;
+    background-color: lightblue;
+    float: right;
+}
+
+article{
+    padding: 10px;
+    margin: 5px;
+    background-color: white;
+}
+
+footer{
+    clear: both;
+    text-align: center;
+}
+
+nav ul{
+    padding: 0;
+
+}
+
+nav ul li{
+    display: inline;
+    margin: 5px;
+}
