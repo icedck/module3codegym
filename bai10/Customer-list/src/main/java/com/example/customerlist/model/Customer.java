@@ -1,3 +1,5 @@
+package com.example.customerlist.model;
+
 public class Customer {
     private String name;
     private String dob;

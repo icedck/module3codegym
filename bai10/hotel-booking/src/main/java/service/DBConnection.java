@@ -4,37 +4,28 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DBUtil {
-    private static String jdbcURL = "jdbc:mysql://localhost:3306/hotel_booking?useSSL=false&serverTimezone=UTC";
-    private static String jdbcUsername = "root";
-    private static String jdbcPassword = "123456";
+public class DBConnection {
+    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/hotel_booking?useSSL=false&serverTimezone=UTC";
+    private static final String JDBC_USERNAME = "root";
+    private static final String JDBC_PASSWORD = "123456";
 
-    public static Connection getConnection() {
-        Connection connection = null;
+    public static Connection getConnection() throws SQLException {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
-        } catch (SQLException e) {
-            //e.printStackTrace();
-            System.out.print("Error: " + e.getMessage());
+            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
+            System.err.println("MySQL JDBC Driver not found.");
             e.printStackTrace();
+            throw new SQLException("MySQL JDBC Driver not found.", e);
         }
-        return connection;
+        return DriverManager.getConnection(JDBC_URL, JDBC_USERNAME, JDBC_PASSWORD);
     }
 
-    public static void printSQLException(SQLException ex) {
-        for (Throwable e : ex) {
-            if (e instanceof SQLException) {
-                e.printStackTrace(System.err);
-                System.err.println("SQLState: " + ((SQLException) e).getSQLState());
-                System.err.println("Error Code: " + ((SQLException) e).getErrorCode());
-                System.err.println("Message: " + e.getMessage());
-                Throwable t = ex.getCause();
-                while (t != null) {
-                    System.out.println("Cause: " + t);
-                    t = t.getCause();
-                }
+    public static void closeConnection(Connection connection) {
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                System.err.println("Error closing database connection: " + e.getMessage());
             }
         }
     }
