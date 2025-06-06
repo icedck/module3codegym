@@ -305,7 +305,7 @@ public class UserDAO implements IUserDAO{
                         + "VALUES(?,?)";
                 pstmtAssignment = conn.prepareStatement(sqlPivot);
 
-                permissions.add(-1);
+//                permissions.add(-1);
 
                 for (int permisionId : permissions) {
                     pstmtAssignment.setInt(1, userId);
